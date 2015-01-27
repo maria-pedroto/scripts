@@ -9,6 +9,10 @@
 main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, limitGenerations, rowLimit, colLimit, limitObjs) {
 	count_files <- 1;
 	
+	if(limitObjs > rowLimit * colLimit) {
+		stop("limit objects > matrix size limit");
+	}
+	
 	GEN_PROC_RABBITS <-  sample(1:limitProcRabbits, numberFiles, replace=TRUE);
 	GEN_PROC_FOXES <- sample(1:limitProcFoxes, numberFiles, replace=TRUE);
 	GEN_FOOD_FOXES <- sample(1:limitFoodFoxes, numberFiles, replace=TRUE);
@@ -23,7 +27,7 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 	
 	FILENAME <- "SAMPLE_";
 	
-	setwd("D:\\PROJ\\COMPUTING\\");
+	setwd("D:\\PROJ\\SCRIPTS\\");
 	
 	repeat {
 		currentFilename <- paste0(FILENAME, count_files, ".txt");
@@ -41,7 +45,7 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 		#POS_X <- sample(1:R[count_files], N_OBJS[count_files], replace=TRUE);
 		#POS_Y <- sample(1:C[count_files], N_OBJS[count_files], replace=TRUE);
 		
-		AUX <- matrix(1:R[count_files] * C[count_files], nrow=R[count_files], ncol=C[count_files]) 
+		AUX <- matrix(1:(R[count_files] * C[count_files]), nrow=R[count_files], ncol=C[count_files]) 
 		SAMPLE <- sample(AUX, N_OBJS[count_files], replace=FALSE);
 		
 		count_items <- 1;
@@ -57,11 +61,11 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 				type <- RABBIT;
 			}
 			
-			POS_X <- which( B == SAMPLE[count_items], arr.ind=T)[1];
-			POS_Y <- which( B == SAMPLE[count_items], arr.ind=T)[2];
+			POS_X <- which( AUX == SAMPLE[count_items], arr.ind=T)[1];
+			POS_Y <- which( AUX == SAMPLE[count_items], arr.ind=T)[2];
 			
 			#criar uma linha por cada N_OBJS
-			cat(paste(TYPES[count_items], POS_X, POS_Y),file=currentFilename,sep="\n", append=TRUE);
+			cat(paste(type, POS_X, POS_Y),file=currentFilename,sep="\n", append=TRUE);
 			count_items <- count_items + 1;
 			if(count_items > N_OBJS[count_files]) break;
 		}
@@ -73,4 +77,4 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 	}
 }
 
-main(1, 2000, 2000, 100, 10000, 100000, 100000, 100000);
+main(1, 2000, 2000, 100, 10000, 100, 100000, 100000);
