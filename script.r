@@ -6,7 +6,7 @@
 #N_OBJS - number of objects in the initial ecosystem.
 #N_OBJS follow, one per line, using the format OBJECT X Y where OBJECT can be a ROCK, FOX or RABBIT, and X and Y are the coordinates where the OBJECT is positioned in the array.
 
-main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, limitGenerations, rowLimit, colLimit) {
+main <- function(workingDirectory, numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, limitGenerations, rowLimit, colLimit) {
 	count_files <- 1;
 	
 	GEN_PROC_RABBITS <-  sample(1:limitProcRabbits, numberFiles, replace=TRUE);
@@ -22,7 +22,7 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 	
 	FILENAME <- "SAMPLE_";
 	
-	setwd("D:\\PROJ\\SCRIPTS\\");
+	setwd(workingDirectory);
 	
 	repeat {
 		N_OBJS <-sample(1:(R[count_files]*C[count_files]), 1);
@@ -72,4 +72,4 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 	}
 }
 
-main(1, 2000, 2000, 100, 10000, 100, 100000);
+main("D:\\PROJ\\SCRIPTS\\", 1, 2000, 2000, 100, 10000, 100, 100000);
