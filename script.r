@@ -38,8 +38,12 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 		cat(N_OBJS[count_files],file=currentFilename,sep="\n", append=TRUE);
 		
 		TYPES <- sample(1:3, N_OBJS[count_files], replace=TRUE);
-		POS_X <- sample(1:R[count_files], N_OBJS[count_files], replace=TRUE);
-		POS_Y <- sample(1:C[count_files], N_OBJS[count_files], replace=TRUE);
+		#POS_X <- sample(1:R[count_files], N_OBJS[count_files], replace=TRUE);
+		#POS_Y <- sample(1:C[count_files], N_OBJS[count_files], replace=TRUE);
+		
+		AUX <- matrix(1:R[count_files] * C[count_files], nrow=R[count_files], ncol=C[count_files]) 
+		SAMPLE <- sample(AUX, N_OBJS[count_files], replace=FALSE);
+		
 		count_items <- 1;
 		repeat {
 			type <- "";
@@ -52,8 +56,12 @@ main <- function(numberFiles, limitProcRabbits, limitProcFoxes, limitFoodFoxes, 
 			if(TYPES[count_items] == 3) {
 				type <- RABBIT;
 			}
+			
+			POS_X <- which( B == SAMPLE[count_items], arr.ind=T)[1];
+			POS_Y <- which( B == SAMPLE[count_items], arr.ind=T)[2];
+			
 			#criar uma linha por cada N_OBJS
-			cat(paste(TYPES[count_items], POS_X[count_items], POS_Y[count_items]),file=currentFilename,sep="\n", append=TRUE);
+			cat(paste(TYPES[count_items], POS_X, POS_Y),file=currentFilename,sep="\n", append=TRUE);
 			count_items <- count_items + 1;
 			if(count_items > N_OBJS[count_files]) break;
 		}
